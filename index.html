@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> Benji Studios — Web Design Agency</title>
+  <title>Studio [Name] — Web Design Agency</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -57,6 +57,7 @@
       text-decoration: none;
     }
     .nav-logo span { color: var(--rose); }
+    .nav-right { display: flex; align-items: center; gap: 2.5rem; }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a {
       font-size: 0.78rem;
@@ -69,6 +70,37 @@
     }
     .nav-links a:hover { opacity: 1; }
 
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid rgba(28,28,30,0.18);
+      overflow: hidden;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      padding: 0.38rem 0.7rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--slate);
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s, background 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .lang-btn:first-child { border-right: 1px solid rgba(28,28,30,0.18); }
+    .lang-btn.active {
+      background: var(--slate);
+      color: var(--ivory);
+      opacity: 1;
+    }
+    .lang-btn:not(.active):hover { opacity: 0.8; }
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -78,20 +110,6 @@
       padding: 8rem 4rem 4rem;
       position: relative;
       overflow: hidden;
-    }
-    .hero-ghost {
-      position: absolute;
-      bottom: -2rem;
-      right: -2rem;
-      font-family: 'Cormorant Garant', serif;
-      font-size: clamp(8rem, 18vw, 22rem);
-      font-weight: 300;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(201,169,154,0.18);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.02em;
     }
     .hero-eyebrow {
       font-size: 0.72rem;
@@ -308,7 +326,6 @@
       gap: 5rem;
       align-items: center;
     }
-    .why-left {}
     .why-left p { font-size: 0.92rem; opacity: 0.72; line-height: 1.8; margin-top: 1.5rem; max-width: 44ch; }
     .why-right { display: flex; flex-direction: column; gap: 0; }
     .why-item {
@@ -438,68 +455,73 @@
   <!-- NAV -->
   <nav id="nav">
     <a href="#" class="nav-logo">Studio <span>[Name]</span></a>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#work" data-i18n="nav.work">Work</a></li>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="pt">PT</button>
+      </div>
+    </div>
   </nav>
 
   <!-- HERO -->
   <header class="hero">
-    <div class="hero-ghost">WEDDINGS</div>
-    <p class="hero-eyebrow reveal">Web Design Studio</p>
-    <h1 class="reveal">Your story, <em>beautifully</em> online.</h1>
-    <p class="hero-sub reveal">We design websites that capture the soul of your brand — from intimate wedding celebrations to bold commercial ventures. Every pixel, considered.</p>
+    <p class="hero-eyebrow reveal" data-i18n="hero.eyebrow">Web Design Studio</p>
+    <h1 class="reveal" data-i18n-html="hero.h1.en">Your story, <em>beautifully</em> online.</h1>
+    <p class="hero-sub reveal" data-i18n="hero.sub">We design websites that capture the soul of your brand — from intimate wedding celebrations to bold commercial ventures. Every pixel, considered.</p>
     <div class="hero-cta reveal">
-      <a href="#work" class="btn-primary">View Our Work</a>
-      <a href="#contact" class="btn-ghost">Start a Project</a>
+      <a href="#work" class="btn-primary" data-i18n="hero.cta1">View Our Work</a>
+      <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Start a Project</a>
     </div>
   </header>
 
   <!-- MARQUEE -->
   <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span>Wedding Websites</span><span class="dot">◆</span>
-      <span>Landing Pages</span><span class="dot">◆</span>
-      <span>Brand Identity</span><span class="dot">◆</span>
-      <span>Custom Design</span><span class="dot">◆</span>
-      <span>E-Commerce</span><span class="dot">◆</span>
-      <span>Portfolio Sites</span><span class="dot">◆</span>
-      <span>Wedding Websites</span><span class="dot">◆</span>
-      <span>Landing Pages</span><span class="dot">◆</span>
-      <span>Brand Identity</span><span class="dot">◆</span>
-      <span>Custom Design</span><span class="dot">◆</span>
-      <span>E-Commerce</span><span class="dot">◆</span>
-      <span>Portfolio Sites</span><span class="dot">◆</span>
+    <div class="marquee-track" id="marquee-track">
+      <span data-i18n="marquee.1">Wedding Websites</span><span class="dot">◆</span>
+      <span data-i18n="marquee.2">Landing Pages</span><span class="dot">◆</span>
+      <span data-i18n="marquee.3">Brand Identity</span><span class="dot">◆</span>
+      <span data-i18n="marquee.4">Custom Design</span><span class="dot">◆</span>
+      <span data-i18n="marquee.5">E-Commerce</span><span class="dot">◆</span>
+      <span data-i18n="marquee.6">Portfolio Sites</span><span class="dot">◆</span>
+      <span data-i18n="marquee.1">Wedding Websites</span><span class="dot">◆</span>
+      <span data-i18n="marquee.2">Landing Pages</span><span class="dot">◆</span>
+      <span data-i18n="marquee.3">Brand Identity</span><span class="dot">◆</span>
+      <span data-i18n="marquee.4">Custom Design</span><span class="dot">◆</span>
+      <span data-i18n="marquee.5">E-Commerce</span><span class="dot">◆</span>
+      <span data-i18n="marquee.6">Portfolio Sites</span><span class="dot">◆</span>
     </div>
   </div>
 
   <!-- SERVICES -->
   <section id="services">
-    <span class="section-label reveal">What We Do</span>
-    <h2 class="section-title reveal">Built for the moments<br>that <em>matter most</em></h2>
+    <span class="section-label reveal" data-i18n="services.label">What We Do</span>
+    <h2 class="section-title reveal" data-i18n-html="services.title.en">Built for the moments<br>that <em>matter most</em></h2>
     <div class="services-grid">
       <div class="service-card reveal">
         <span class="service-num">I</span>
-        <h3>Wedding Websites</h3>
-        <p>Bespoke digital experiences for couples who want more than a template. RSVP management, photo galleries, travel info, and a design as unique as your day.</p>
+        <h3 data-i18n="services.1.title">Wedding Websites</h3>
+        <p data-i18n="services.1.desc">Bespoke digital experiences for couples who want more than a template. RSVP management, photo galleries, travel info, and a design as unique as your day.</p>
       </div>
       <div class="service-card reveal">
         <span class="service-num">II</span>
-        <h3>Business Landing Pages</h3>
-        <p>High-converting pages designed to turn visitors into clients. Clear messaging, elegant design, and a CTA that actually works.</p>
+        <h3 data-i18n="services.2.title">Business Landing Pages</h3>
+        <p data-i18n="services.2.desc">High-converting pages designed to turn visitors into clients. Clear messaging, elegant design, and a CTA that actually works.</p>
       </div>
       <div class="service-card reveal">
         <span class="service-num">III</span>
-        <h3>Brand & Identity</h3>
-        <p>Logo, palette, typography — the visual language your business speaks. We make sure it's coherent across every touchpoint.</p>
+        <h3 data-i18n="services.3.title">Brand &amp; Identity</h3>
+        <p data-i18n="services.3.desc">Logo, palette, typography — the visual language your business speaks. We make sure it's coherent across every touchpoint.</p>
       </div>
       <div class="service-card reveal">
         <span class="service-num">IV</span>
-        <h3>Full Website Builds</h3>
-        <p>Multi-page sites with CMS integration, e-commerce, or custom functionality. From concept to launch, we handle it all.</p>
+        <h3 data-i18n="services.4.title">Full Website Builds</h3>
+        <p data-i18n="services.4.desc">Multi-page sites with CMS integration, e-commerce, or custom functionality. From concept to launch, we handle it all.</p>
       </div>
     </div>
   </section>
@@ -508,70 +530,70 @@
   <section id="work" class="portfolio">
     <div class="portfolio-intro">
       <div>
-        <span class="section-label reveal">Selected Work</span>
-        <h2 class="section-title reveal">Every site tells<br>a <em>story</em></h2>
+        <span class="section-label reveal" data-i18n="portfolio.label">Selected Work</span>
+        <h2 class="section-title reveal" data-i18n-html="portfolio.title.en">Every site tells<br>a <em>story</em></h2>
       </div>
-      <p class="reveal">A selection of recent projects — each one built from scratch, with intention. Add your work here to show clients what's possible.</p>
+      <p class="reveal" data-i18n="portfolio.desc">A selection of recent projects — each one built from scratch, with intention. Add your work here to show clients what's possible.</p>
     </div>
     <div class="portfolio-grid">
       <div class="proj proj-a reveal">
         <div class="proj-img">
-          <div class="proj-img-inner">Your Featured Project</div>
+          <div class="proj-img-inner" data-i18n="portfolio.featured">Your Featured Project</div>
           <div class="proj-overlay">
-            <span>Wedding Website</span>
+            <span data-i18n="portfolio.tag.wedding">Wedding Website</span>
             <h4>The Hartley Wedding</h4>
           </div>
         </div>
       </div>
       <div class="proj proj-b reveal">
         <div class="proj-img">
-          <div class="proj-img-inner">Project Two</div>
+          <div class="proj-img-inner" data-i18n="portfolio.proj2">Project Two</div>
           <div class="proj-overlay">
-            <span>Landing Page</span>
+            <span data-i18n="portfolio.tag.landing">Landing Page</span>
             <h4>Bloom Florals</h4>
           </div>
         </div>
         <div class="proj-meta">
-          <span>Landing Page</span>
+          <span data-i18n="portfolio.tag.landing">Landing Page</span>
           <h4>Bloom Florals</h4>
         </div>
       </div>
       <div class="proj proj-c reveal">
         <div class="proj-img">
-          <div class="proj-img-inner">Project Three</div>
+          <div class="proj-img-inner" data-i18n="portfolio.proj3">Project Three</div>
           <div class="proj-overlay">
-            <span>Wedding Website</span>
-            <h4>Moreau & James</h4>
+            <span data-i18n="portfolio.tag.wedding">Wedding Website</span>
+            <h4>Moreau &amp; James</h4>
           </div>
         </div>
         <div class="proj-meta">
-          <span>Wedding Website</span>
-          <h4>Moreau & James</h4>
+          <span data-i18n="portfolio.tag.wedding">Wedding Website</span>
+          <h4>Moreau &amp; James</h4>
         </div>
       </div>
       <div class="proj proj-d reveal">
         <div class="proj-img">
-          <div class="proj-img-inner">Project Four</div>
+          <div class="proj-img-inner" data-i18n="portfolio.proj4">Project Four</div>
           <div class="proj-overlay">
-            <span>Brand + Web</span>
+            <span data-i18n="portfolio.tag.brand">Brand + Web</span>
             <h4>The Stone Barn Venue</h4>
           </div>
         </div>
         <div class="proj-meta">
-          <span>Brand + Web</span>
+          <span data-i18n="portfolio.tag.brand">Brand + Web</span>
           <h4>The Stone Barn Venue</h4>
         </div>
       </div>
       <div class="proj proj-e reveal">
         <div class="proj-img">
-          <div class="proj-img-inner">Project Five</div>
+          <div class="proj-img-inner" data-i18n="portfolio.proj5">Project Five</div>
           <div class="proj-overlay">
-            <span>E-Commerce</span>
+            <span data-i18n="portfolio.tag.ecom">E-Commerce</span>
             <h4>Elara Jewellery</h4>
           </div>
         </div>
         <div class="proj-meta">
-          <span>E-Commerce</span>
+          <span data-i18n="portfolio.tag.ecom">E-Commerce</span>
           <h4>Elara Jewellery</h4>
         </div>
       </div>
@@ -582,37 +604,37 @@
   <section id="about">
     <div class="why">
       <div class="why-left">
-        <span class="section-label reveal">Why Studio [Name]</span>
-        <h2 class="section-title reveal">Design that earns<br><em>trust</em> before you say a word</h2>
-        <p class="reveal">We believe your website is often the first impression — and first impressions are everything. Whether it's a couple sharing their love story or a brand making its case, we design with depth, care, and an obsessive eye for detail.</p>
+        <span class="section-label reveal" data-i18n="why.label">Why Studio [Name]</span>
+        <h2 class="section-title reveal" data-i18n-html="why.title.en">Design that earns<br><em>trust</em> before you say a word</h2>
+        <p class="reveal" data-i18n="why.desc">We believe your website is often the first impression — and first impressions are everything. Whether it's a couple sharing their love story or a brand making its case, we design with depth, care, and an obsessive eye for detail.</p>
       </div>
       <div class="why-right">
         <div class="why-item reveal">
           <div class="why-icon">✦</div>
           <div>
-            <h4>Custom, not templated</h4>
-            <p>No Squarespace themes. Every project is designed from the ground up to reflect your brand's specific character.</p>
+            <h4 data-i18n="why.1.title">Custom, not templated</h4>
+            <p data-i18n="why.1.desc">No Squarespace themes. Every project is designed from the ground up to reflect your brand's specific character.</p>
           </div>
         </div>
         <div class="why-item reveal">
           <div class="why-icon">✦</div>
           <div>
-            <h4>Fast, mobile-first delivery</h4>
-            <p>Every site we ship is responsive, performant, and optimised for Google. Beauty that actually loads.</p>
+            <h4 data-i18n="why.2.title">Fast, mobile-first delivery</h4>
+            <p data-i18n="why.2.desc">Every site we ship is responsive, performant, and optimised for Google. Beauty that actually loads.</p>
           </div>
         </div>
         <div class="why-item reveal">
           <div class="why-icon">✦</div>
           <div>
-            <h4>Collaborative from day one</h4>
-            <p>You're involved at every stage. No black-box process — just honest conversation and great work.</p>
+            <h4 data-i18n="why.3.title">Collaborative from day one</h4>
+            <p data-i18n="why.3.desc">You're involved at every stage. No black-box process — just honest conversation and great work.</p>
           </div>
         </div>
         <div class="why-item reveal">
           <div class="why-icon">✦</div>
           <div>
-            <h4>Versatile across industries</h4>
-            <p>Weddings are our passion, but great design has no limits. We bring the same standard to every project we take on.</p>
+            <h4 data-i18n="why.4.title">Versatile across industries</h4>
+            <p data-i18n="why.4.desc">Weddings are our passion, but great design has no limits. We bring the same standard to every project we take on.</p>
           </div>
         </div>
       </div>
@@ -621,39 +643,39 @@
 
   <!-- CONTACT -->
   <section id="contact" class="contact">
-    <span class="section-label reveal">Get in Touch</span>
-    <h2 class="section-title reveal">Let's build something<br><em>worth remembering</em></h2>
+    <span class="section-label reveal" data-i18n="contact.label">Get in Touch</span>
+    <h2 class="section-title reveal" data-i18n-html="contact.title.en">Let's build something<br><em>worth remembering</em></h2>
     <div class="contact-inner">
       <div class="contact-left reveal">
-        <p>Whether you have a clear brief or just a spark of an idea, we'd love to hear about it. Tell us about your project and we'll get back to you within one business day.</p>
+        <p data-i18n="contact.desc">Whether you have a clear brief or just a spark of an idea, we'd love to hear about it. Tell us about your project and we'll get back to you within one business day.</p>
         <div class="contact-detail">
-          <span class="label">Email</span>
+          <span class="label" data-i18n="contact.email.label">Email</span>
           <a href="mailto:hello@studioyourname.com">hello@studioyourname.com</a>
         </div>
         <div class="contact-detail">
-          <span class="label">Based in</span>
-          <span>Your City, Country</span>
+          <span class="label" data-i18n="contact.based.label">Based in</span>
+          <span data-i18n="contact.based.value">Your City, Country</span>
         </div>
         <div class="contact-detail">
-          <span class="label">Currently accepting</span>
-          <span>New projects from Q3 2026</span>
+          <span class="label" data-i18n="contact.accepting.label">Currently accepting</span>
+          <span data-i18n="contact.accepting.value">New projects from Q3 2026</span>
         </div>
       </div>
       <div class="contact-form reveal">
         <div class="form-row">
-          <input type="text" placeholder="Your name" />
-          <input type="email" placeholder="Your email" />
+          <input type="text" data-i18n-placeholder="contact.form.name" placeholder="Your name" />
+          <input type="email" data-i18n-placeholder="contact.form.email" placeholder="Your email" />
         </div>
         <select>
-          <option value="" disabled selected>Type of project</option>
-          <option>Wedding Website</option>
-          <option>Business Landing Page</option>
-          <option>Full Website Build</option>
-          <option>Brand & Identity</option>
-          <option>Something else</option>
+          <option value="" disabled selected data-i18n="contact.form.type">Type of project</option>
+          <option data-i18n="contact.form.opt1">Wedding Website</option>
+          <option data-i18n="contact.form.opt2">Business Landing Page</option>
+          <option data-i18n="contact.form.opt3">Full Website Build</option>
+          <option data-i18n="contact.form.opt4">Brand &amp; Identity</option>
+          <option data-i18n="contact.form.opt5">Something else</option>
         </select>
-        <textarea placeholder="Tell us about your project — the more detail, the better."></textarea>
-        <button class="btn-submit">Send Enquiry</button>
+        <textarea data-i18n-placeholder="contact.form.message" placeholder="Tell us about your project — the more detail, the better."></textarea>
+        <button class="btn-submit" data-i18n="contact.form.submit">Send Enquiry</button>
       </div>
     </div>
   </section>
@@ -661,22 +683,203 @@
   <!-- FOOTER -->
   <footer>
     <a href="#" class="nav-logo">Studio <span>[Name]</span></a>
-    <p>© 2026 Studio [Name]. All rights reserved.</p>
+    <p data-i18n="footer.copy">© 2026 Studio [Name]. All rights reserved.</p>
     <div class="footer-links">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </div>
   </footer>
 
   <script>
-    // Nav scroll state
+    // ── TRANSLATIONS ──────────────────────────────────────────
+    const translations = {
+      en: {
+        "nav.services": "Services",
+        "nav.work": "Work",
+        "nav.about": "About",
+        "nav.contact": "Contact",
+        "hero.eyebrow": "Web Design Studio",
+        "hero.h1.en": "Your story, <em>beautifully</em> online.",
+        "hero.sub": "We design websites that capture the soul of your brand — from intimate wedding celebrations to bold commercial ventures. Every pixel, considered.",
+        "hero.cta1": "View Our Work",
+        "hero.cta2": "Start a Project",
+        "marquee.1": "Wedding Websites",
+        "marquee.2": "Landing Pages",
+        "marquee.3": "Brand Identity",
+        "marquee.4": "Custom Design",
+        "marquee.5": "E-Commerce",
+        "marquee.6": "Portfolio Sites",
+        "services.label": "What We Do",
+        "services.title.en": "Built for the moments<br>that <em>matter most</em>",
+        "services.1.title": "Wedding Websites",
+        "services.1.desc": "Bespoke digital experiences for couples who want more than a template. RSVP management, photo galleries, travel info, and a design as unique as your day.",
+        "services.2.title": "Business Landing Pages",
+        "services.2.desc": "High-converting pages designed to turn visitors into clients. Clear messaging, elegant design, and a CTA that actually works.",
+        "services.3.title": "Brand & Identity",
+        "services.3.desc": "Logo, palette, typography — the visual language your business speaks. We make sure it's coherent across every touchpoint.",
+        "services.4.title": "Full Website Builds",
+        "services.4.desc": "Multi-page sites with CMS integration, e-commerce, or custom functionality. From concept to launch, we handle it all.",
+        "portfolio.label": "Selected Work",
+        "portfolio.title.en": "Every site tells<br>a <em>story</em>",
+        "portfolio.desc": "A selection of recent projects — each one built from scratch, with intention. Add your work here to show clients what's possible.",
+        "portfolio.featured": "Your Featured Project",
+        "portfolio.proj2": "Project Two",
+        "portfolio.proj3": "Project Three",
+        "portfolio.proj4": "Project Four",
+        "portfolio.proj5": "Project Five",
+        "portfolio.tag.wedding": "Wedding Website",
+        "portfolio.tag.landing": "Landing Page",
+        "portfolio.tag.brand": "Brand + Web",
+        "portfolio.tag.ecom": "E-Commerce",
+        "why.label": "Why Studio [Name]",
+        "why.title.en": "Design that earns<br><em>trust</em> before you say a word",
+        "why.desc": "We believe your website is often the first impression — and first impressions are everything. Whether it's a couple sharing their love story or a brand making its case, we design with depth, care, and an obsessive eye for detail.",
+        "why.1.title": "Custom, not templated",
+        "why.1.desc": "No Squarespace themes. Every project is designed from the ground up to reflect your brand's specific character.",
+        "why.2.title": "Fast, mobile-first delivery",
+        "why.2.desc": "Every site we ship is responsive, performant, and optimised for Google. Beauty that actually loads.",
+        "why.3.title": "Collaborative from day one",
+        "why.3.desc": "You're involved at every stage. No black-box process — just honest conversation and great work.",
+        "why.4.title": "Versatile across industries",
+        "why.4.desc": "Weddings are our passion, but great design has no limits. We bring the same standard to every project we take on.",
+        "contact.label": "Get in Touch",
+        "contact.title.en": "Let's build something<br><em>worth remembering</em>",
+        "contact.desc": "Whether you have a clear brief or just a spark of an idea, we'd love to hear about it. Tell us about your project and we'll get back to you within one business day.",
+        "contact.email.label": "Email",
+        "contact.based.label": "Based in",
+        "contact.based.value": "Your City, Country",
+        "contact.accepting.label": "Currently accepting",
+        "contact.accepting.value": "New projects from Q3 2026",
+        "contact.form.name": "Your name",
+        "contact.form.email": "Your email",
+        "contact.form.type": "Type of project",
+        "contact.form.opt1": "Wedding Website",
+        "contact.form.opt2": "Business Landing Page",
+        "contact.form.opt3": "Full Website Build",
+        "contact.form.opt4": "Brand & Identity",
+        "contact.form.opt5": "Something else",
+        "contact.form.message": "Tell us about your project — the more detail, the better.",
+        "contact.form.submit": "Send Enquiry",
+        "footer.copy": "© 2026 Studio [Name]. All rights reserved."
+      },
+      pt: {
+        "nav.services": "Serviços",
+        "nav.work": "Trabalho",
+        "nav.about": "Sobre",
+        "nav.contact": "Contacto",
+        "hero.eyebrow": "Estúdio de Web Design",
+        "hero.h1.en": "A sua história, <em>lindamente</em> online.",
+        "hero.sub": "Criamos websites que capturam a essência da sua marca — desde celebrações de casamento íntimas a projectos comerciais ambiciosos. Cada detalhe, pensado.",
+        "hero.cta1": "Ver o Nosso Trabalho",
+        "hero.cta2": "Iniciar um Projecto",
+        "marquee.1": "Websites de Casamento",
+        "marquee.2": "Landing Pages",
+        "marquee.3": "Identidade de Marca",
+        "marquee.4": "Design Personalizado",
+        "marquee.5": "E-Commerce",
+        "marquee.6": "Sites de Portfólio",
+        "services.label": "O Que Fazemos",
+        "services.title.en": "Criado para os momentos<br>que <em>mais importam</em>",
+        "services.1.title": "Websites de Casamento",
+        "services.1.desc": "Experiências digitais únicas para casais que querem mais do que um modelo genérico. Gestão de RSVPs, galerias de fotos, informações de viagem e um design tão único como o vosso dia.",
+        "services.2.title": "Landing Pages para Negócios",
+        "services.2.desc": "Páginas de alta conversão criadas para transformar visitantes em clientes. Mensagem clara, design elegante e um call-to-action que realmente funciona.",
+        "services.3.title": "Marca e Identidade",
+        "services.3.desc": "Logótipo, paleta de cores, tipografia — a linguagem visual do seu negócio. Garantimos coerência em todos os pontos de contacto.",
+        "services.4.title": "Websites Completos",
+        "services.4.desc": "Sites com múltiplas páginas, integração com CMS, e-commerce ou funcionalidades personalizadas. Do conceito ao lançamento, tratamos de tudo.",
+        "portfolio.label": "Trabalho Seleccionado",
+        "portfolio.title.en": "Cada site conta<br>uma <em>história</em>",
+        "portfolio.desc": "Uma selecção de projectos recentes — cada um construído de raiz, com intenção. Adicione o seu trabalho aqui para mostrar aos clientes o que é possível.",
+        "portfolio.featured": "O Seu Projecto em Destaque",
+        "portfolio.proj2": "Projecto Dois",
+        "portfolio.proj3": "Projecto Três",
+        "portfolio.proj4": "Projecto Quatro",
+        "portfolio.proj5": "Projecto Cinco",
+        "portfolio.tag.wedding": "Website de Casamento",
+        "portfolio.tag.landing": "Landing Page",
+        "portfolio.tag.brand": "Marca + Web",
+        "portfolio.tag.ecom": "E-Commerce",
+        "why.label": "Porquê o Studio [Name]",
+        "why.title.en": "Design que conquista<br><em>confiança</em> antes de dizer uma palavra",
+        "why.desc": "Acreditamos que o seu website é frequentemente a primeira impressão — e as primeiras impressões são tudo. Seja um casal a partilhar a sua história de amor ou uma marca a afirmar-se, criamos com profundidade, cuidado e um olhar obsessivo pelo detalhe.",
+        "why.1.title": "Personalizado, não genérico",
+        "why.1.desc": "Sem temas do Squarespace. Cada projecto é desenhado de raiz para reflectir o carácter específico da sua marca.",
+        "why.2.title": "Entrega rápida e mobile-first",
+        "why.2.desc": "Cada site que lançamos é responsivo, rápido e optimizado para o Google. Beleza que realmente carrega.",
+        "why.3.title": "Colaborativo desde o primeiro dia",
+        "why.3.desc": "Está envolvido em cada etapa. Sem processos opacos — apenas conversa honesta e trabalho de qualidade.",
+        "why.4.title": "Versátil em todos os sectores",
+        "why.4.desc": "Os casamentos são a nossa paixão, mas o bom design não tem limites. Aplicamos o mesmo nível de exigência a cada projecto que assumimos.",
+        "contact.label": "Entre em Contacto",
+        "contact.title.en": "Vamos criar algo<br><em>inesquecível</em>",
+        "contact.desc": "Tenha um briefing claro ou apenas uma ideia inicial, adoraríamos ouvir. Fale-nos do seu projecto e respondemos dentro de um dia útil.",
+        "contact.email.label": "Email",
+        "contact.based.label": "Localização",
+        "contact.based.value": "A Sua Cidade, País",
+        "contact.accepting.label": "A aceitar projectos",
+        "contact.accepting.value": "Novos projectos a partir do 3.º trimestre de 2026",
+        "contact.form.name": "O seu nome",
+        "contact.form.email": "O seu email",
+        "contact.form.type": "Tipo de projecto",
+        "contact.form.opt1": "Website de Casamento",
+        "contact.form.opt2": "Landing Page para Negócio",
+        "contact.form.opt3": "Website Completo",
+        "contact.form.opt4": "Marca e Identidade",
+        "contact.form.opt5": "Outro",
+        "contact.form.message": "Fale-nos do seu projecto — quanto mais detalhe, melhor.",
+        "contact.form.submit": "Enviar Mensagem",
+        "footer.copy": "© 2026 Studio [Name]. Todos os direitos reservados."
+      }
+    };
+
+    // ── APPLY LANGUAGE ────────────────────────────────────────
+    function applyLang(lang) {
+      const t = translations[lang];
+      document.documentElement.lang = lang;
+
+      // Simple text swaps
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      // HTML swaps (for elements with <em> tags)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const keyAttr = el.getAttribute('data-i18n-html');
+        // The key stored on the element is the English key name; we look up the same key in both langs
+        // but the key always ends in ".en" — we use the same key for both languages
+        if (t[keyAttr] !== undefined) el.innerHTML = t[keyAttr];
+      });
+
+      // Placeholder swaps
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      // Update lang buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Persist choice
+      localStorage.setItem('lang', lang);
+    }
+
+    // ── LANG BUTTON CLICKS ────────────────────────────────────
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
+    });
+
+    // ── NAV SCROLL STATE ──────────────────────────────────────
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // Scroll reveal
+    // ── SCROLL REVEAL ─────────────────────────────────────────
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -687,6 +890,10 @@
       });
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
+
+    // ── INIT: load saved language or default to EN ────────────
+    const savedLang = localStorage.getItem('lang') || 'en';
+    applyLang(savedLang);
   </script>
 </body>
 </html>
