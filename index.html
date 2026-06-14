@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio [Name] — Web Design Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --slate:   #1C1C1E;
+      --ivory:   #FAF7F2;
+      --rose:    #C9A99A;
+      --sage:    #8A9E8C;
+      --charcoal:#3D3D3D;
+      --light:   #EDEBE6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ivory);
+      color: var(--charcoal);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: transparent;
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(8px);
+      padding: 1rem 4rem;
+      border-bottom: 1px solid var(--light);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--slate);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--rose); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-ghost {
+      position: absolute;
+      bottom: -2rem;
+      right: -2rem;
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(8rem, 18vw, 22rem);
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,169,154,0.18);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.02em;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.6rem;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.06;
+      letter-spacing: -0.01em;
+      color: var(--slate);
+      max-width: 14ch;
+      margin-bottom: 2rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--rose);
+    }
+    .hero-sub {
+      font-size: 1rem;
+      max-width: 42ch;
+      opacity: 0.75;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--slate);
+      color: var(--ivory);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--rose); transform: translateY(-1px); }
+    .btn-ghost {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rose);
+      padding-bottom: 2px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .btn-ghost:hover { opacity: 1; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garant', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: var(--slate);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .section-title em { font-style: italic; color: var(--rose); }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--slate);
+      padding: 1.1rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-track span {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: var(--rose);
+      text-transform: uppercase;
+      padding: 0 2rem;
+    }
+    .marquee-track span.dot { color: var(--ivory); opacity: 0.3; font-size: 0.5rem; vertical-align: middle; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0;
+      margin-top: 4rem;
+      border-top: 1px solid var(--light);
+    }
+    .service-card {
+      padding: 2.8rem 2.2rem;
+      border-bottom: 1px solid var(--light);
+      border-right: 1px solid var(--light);
+      transition: background 0.25s;
+    }
+    .service-card:hover { background: var(--light); }
+    .service-num {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.5rem;
+      color: var(--rose);
+      opacity: 0.5;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--slate);
+      margin-bottom: 0.8rem;
+    }
+    .service-card p { font-size: 0.88rem; opacity: 0.72; line-height: 1.7; }
+
+    /* ── PORTFOLIO ── */
+    .portfolio { background: var(--light); }
+    .portfolio-intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .portfolio-intro p { max-width: 42ch; font-size: 0.92rem; opacity: 0.7; line-height: 1.7; }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.2rem;
+    }
+    .proj { position: relative; overflow: hidden; }
+    .proj-a { grid-column: span 7; grid-row: span 2; }
+    .proj-b { grid-column: span 5; }
+    .proj-c { grid-column: span 5; }
+    .proj-d { grid-column: span 6; }
+    .proj-e { grid-column: span 6; }
+    .proj-img {
+      width: 100%;
+      aspect-ratio: auto;
+      background: var(--slate);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .proj-a .proj-img { aspect-ratio: 4/5; }
+    .proj-b .proj-img, .proj-c .proj-img { aspect-ratio: 3/2; }
+    .proj-d .proj-img, .proj-e .proj-img { aspect-ratio: 16/9; }
+    .proj-img-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.1rem;
+      color: rgba(250,247,242,0.25);
+      letter-spacing: 0.15em;
+      transition: transform 0.5s ease;
+    }
+    .proj:hover .proj-img-inner { transform: scale(1.03); }
+    .proj-a .proj-img-inner { background: linear-gradient(135deg, #2a2320 0%, #1C1C1E 100%); font-size: 1.5rem; }
+    .proj-b .proj-img-inner { background: linear-gradient(135deg, #2d2926 0%, #3a302c 100%); }
+    .proj-c .proj-img-inner { background: linear-gradient(135deg, #1e2520 0%, #252e26 100%); }
+    .proj-d .proj-img-inner { background: linear-gradient(135deg, #29252a 0%, #201e23 100%); }
+    .proj-e .proj-img-inner { background: linear-gradient(135deg, #222822 0%, #1d2420 100%); }
+    .proj-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.2rem 1.4rem;
+      background: linear-gradient(transparent, rgba(28,28,30,0.75));
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .proj:hover .proj-overlay { transform: translateY(0); }
+    .proj-overlay h4 {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.1rem;
+      color: var(--ivory);
+      font-weight: 400;
+    }
+    .proj-overlay span { font-size: 0.7rem; color: var(--rose); letter-spacing: 0.1em; text-transform: uppercase; }
+    .proj-meta { margin-top: 0.7rem; }
+    .proj-meta h4 { font-family: 'Cormorant Garant', serif; font-size: 1rem; color: var(--slate); font-weight: 400; }
+    .proj-meta span { font-size: 0.7rem; color: var(--sage); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── WHY US ── */
+    .why {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .why-left {}
+    .why-left p { font-size: 0.92rem; opacity: 0.72; line-height: 1.8; margin-top: 1.5rem; max-width: 44ch; }
+    .why-right { display: flex; flex-direction: column; gap: 0; }
+    .why-item {
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--light);
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    .why-item:first-child { border-top: 1px solid var(--light); }
+    .why-icon {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.8rem;
+      color: var(--rose);
+      opacity: 0.6;
+      flex-shrink: 0;
+      width: 2rem;
+      line-height: 1;
+      padding-top: 0.2rem;
+    }
+    .why-item h4 {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 1.15rem;
+      color: var(--slate);
+      font-weight: 400;
+      margin-bottom: 0.35rem;
+    }
+    .why-item p { font-size: 0.85rem; opacity: 0.68; line-height: 1.65; }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--slate); color: var(--ivory); }
+    .contact .section-label { color: var(--rose); }
+    .contact .section-title { color: var(--ivory); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3.5rem;
+    }
+    .contact-left p { font-size: 0.92rem; opacity: 0.6; line-height: 1.8; margin-bottom: 2rem; }
+    .contact-detail { margin-bottom: 1.2rem; }
+    .contact-detail .label { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.2rem; display: block; }
+    .contact-detail a, .contact-detail span { color: var(--ivory); opacity: 0.8; font-size: 0.92rem; text-decoration: none; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--ivory);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      padding: 0.85rem 1rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(250,247,242,0.3); }
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus { border-color: var(--rose); }
+    .contact-form textarea { resize: vertical; min-height: 120px; }
+    .contact-form select option { background: var(--slate); }
+    .btn-submit {
+      background: var(--rose);
+      color: var(--ivory);
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: #b8948a; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--slate);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .nav-logo { color: var(--ivory); }
+    footer p { font-size: 0.72rem; color: rgba(250,247,242,0.35); letter-spacing: 0.05em; }
+    footer .footer-links { display: flex; gap: 1.5rem; }
+    footer .footer-links a { font-size: 0.72rem; color: rgba(250,247,242,0.4); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+    footer .footer-links a:hover { color: var(--rose); }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      nav.scrolled { padding: 0.9rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      .hero { padding: 7rem 2rem 4rem; }
+      .why { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .proj-a, .proj-b, .proj-c, .proj-d, .proj-e { grid-column: span 2; }
+      .proj-a .proj-img { aspect-ratio: 3/2; }
+      footer { padding: 1.5rem 2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .marquee-track { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Studio <span>[Name]</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-ghost">WEDDINGS</div>
+    <p class="hero-eyebrow reveal">Web Design Studio</p>
+    <h1 class="reveal">Your story, <em>beautifully</em> online.</h1>
+    <p class="hero-sub reveal">We design websites that capture the soul of your brand — from intimate wedding celebrations to bold commercial ventures. Every pixel, considered.</p>
+    <div class="hero-cta reveal">
+      <a href="#work" class="btn-primary">View Our Work</a>
+      <a href="#contact" class="btn-ghost">Start a Project</a>
+    </div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Wedding Websites</span><span class="dot">◆</span>
+      <span>Landing Pages</span><span class="dot">◆</span>
+      <span>Brand Identity</span><span class="dot">◆</span>
+      <span>Custom Design</span><span class="dot">◆</span>
+      <span>E-Commerce</span><span class="dot">◆</span>
+      <span>Portfolio Sites</span><span class="dot">◆</span>
+      <span>Wedding Websites</span><span class="dot">◆</span>
+      <span>Landing Pages</span><span class="dot">◆</span>
+      <span>Brand Identity</span><span class="dot">◆</span>
+      <span>Custom Design</span><span class="dot">◆</span>
+      <span>E-Commerce</span><span class="dot">◆</span>
+      <span>Portfolio Sites</span><span class="dot">◆</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <span class="section-label reveal">What We Do</span>
+    <h2 class="section-title reveal">Built for the moments<br>that <em>matter most</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-num">I</span>
+        <h3>Wedding Websites</h3>
+        <p>Bespoke digital experiences for couples who want more than a template. RSVP management, photo galleries, travel info, and a design as unique as your day.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">II</span>
+        <h3>Business Landing Pages</h3>
+        <p>High-converting pages designed to turn visitors into clients. Clear messaging, elegant design, and a CTA that actually works.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">III</span>
+        <h3>Brand & Identity</h3>
+        <p>Logo, palette, typography — the visual language your business speaks. We make sure it's coherent across every touchpoint.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">IV</span>
+        <h3>Full Website Builds</h3>
+        <p>Multi-page sites with CMS integration, e-commerce, or custom functionality. From concept to launch, we handle it all.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="work" class="portfolio">
+    <div class="portfolio-intro">
+      <div>
+        <span class="section-label reveal">Selected Work</span>
+        <h2 class="section-title reveal">Every site tells<br>a <em>story</em></h2>
+      </div>
+      <p class="reveal">A selection of recent projects — each one built from scratch, with intention. Add your work here to show clients what's possible.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="proj proj-a reveal">
+        <div class="proj-img">
+          <div class="proj-img-inner">Your Featured Project</div>
+          <div class="proj-overlay">
+            <span>Wedding Website</span>
+            <h4>The Hartley Wedding</h4>
+          </div>
+        </div>
+      </div>
+      <div class="proj proj-b reveal">
+        <div class="proj-img">
+          <div class="proj-img-inner">Project Two</div>
+          <div class="proj-overlay">
+            <span>Landing Page</span>
+            <h4>Bloom Florals</h4>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <span>Landing Page</span>
+          <h4>Bloom Florals</h4>
+        </div>
+      </div>
+      <div class="proj proj-c reveal">
+        <div class="proj-img">
+          <div class="proj-img-inner">Project Three</div>
+          <div class="proj-overlay">
+            <span>Wedding Website</span>
+            <h4>Moreau & James</h4>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <span>Wedding Website</span>
+          <h4>Moreau & James</h4>
+        </div>
+      </div>
+      <div class="proj proj-d reveal">
+        <div class="proj-img">
+          <div class="proj-img-inner">Project Four</div>
+          <div class="proj-overlay">
+            <span>Brand + Web</span>
+            <h4>The Stone Barn Venue</h4>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <span>Brand + Web</span>
+          <h4>The Stone Barn Venue</h4>
+        </div>
+      </div>
+      <div class="proj proj-e reveal">
+        <div class="proj-img">
+          <div class="proj-img-inner">Project Five</div>
+          <div class="proj-overlay">
+            <span>E-Commerce</span>
+            <h4>Elara Jewellery</h4>
+          </div>
+        </div>
+        <div class="proj-meta">
+          <span>E-Commerce</span>
+          <h4>Elara Jewellery</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="about">
+    <div class="why">
+      <div class="why-left">
+        <span class="section-label reveal">Why Studio [Name]</span>
+        <h2 class="section-title reveal">Design that earns<br><em>trust</em> before you say a word</h2>
+        <p class="reveal">We believe your website is often the first impression — and first impressions are everything. Whether it's a couple sharing their love story or a brand making its case, we design with depth, care, and an obsessive eye for detail.</p>
+      </div>
+      <div class="why-right">
+        <div class="why-item reveal">
+          <div class="why-icon">✦</div>
+          <div>
+            <h4>Custom, not templated</h4>
+            <p>No Squarespace themes. Every project is designed from the ground up to reflect your brand's specific character.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">✦</div>
+          <div>
+            <h4>Fast, mobile-first delivery</h4>
+            <p>Every site we ship is responsive, performant, and optimised for Google. Beauty that actually loads.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">✦</div>
+          <div>
+            <h4>Collaborative from day one</h4>
+            <p>You're involved at every stage. No black-box process — just honest conversation and great work.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">✦</div>
+          <div>
+            <h4>Versatile across industries</h4>
+            <p>Weddings are our passion, but great design has no limits. We bring the same standard to every project we take on.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <span class="section-label reveal">Get in Touch</span>
+    <h2 class="section-title reveal">Let's build something<br><em>worth remembering</em></h2>
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <p>Whether you have a clear brief or just a spark of an idea, we'd love to hear about it. Tell us about your project and we'll get back to you within one business day.</p>
+        <div class="contact-detail">
+          <span class="label">Email</span>
+          <a href="mailto:hello@studioyourname.com">hello@studioyourname.com</a>
+        </div>
+        <div class="contact-detail">
+          <span class="label">Based in</span>
+          <span>Your City, Country</span>
+        </div>
+        <div class="contact-detail">
+          <span class="label">Currently accepting</span>
+          <span>New projects from Q3 2026</span>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-row">
+          <input type="text" placeholder="Your name" />
+          <input type="email" placeholder="Your email" />
+        </div>
+        <select>
+          <option value="" disabled selected>Type of project</option>
+          <option>Wedding Website</option>
+          <option>Business Landing Page</option>
+          <option>Full Website Build</option>
+          <option>Brand & Identity</option>
+          <option>Something else</option>
+        </select>
+        <textarea placeholder="Tell us about your project — the more detail, the better."></textarea>
+        <button class="btn-submit">Send Enquiry</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="nav-logo">Studio <span>[Name]</span></a>
+    <p>© 2026 Studio [Name]. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll state
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
