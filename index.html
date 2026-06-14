@@ -101,6 +101,12 @@
     }
     .lang-btn:not(.active):hover { opacity: 0.8; }
 
+    /* Dark variant — used inside the footer (dark background) */
+    .lang-switcher--dark { border-color: rgba(250,247,242,0.2); }
+    .lang-switcher--dark .lang-btn { color: var(--ivory); }
+    .lang-switcher--dark .lang-btn:first-child { border-right-color: rgba(250,247,242,0.2); }
+    .lang-switcher--dark .lang-btn.active { background: var(--rose); color: var(--ivory); }
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -424,6 +430,8 @@
     footer .footer-links { display: flex; gap: 1.5rem; }
     footer .footer-links a { font-size: 0.72rem; color: rgba(250,247,242,0.4); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
     footer .footer-links a:hover { color: var(--rose); }
+    /* Groups the footer nav links + language switcher together on the right */
+    footer .footer-right { display: flex; align-items: center; gap: 1.5rem; }
 
     /* ── REVEAL ANIMATION ── */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -443,6 +451,10 @@
       .proj-a, .proj-b, .proj-c, .proj-d, .proj-e { grid-column: span 2; }
       .proj-a .proj-img { aspect-ratio: 3/2; }
       footer { padding: 1.5rem 2rem; }
+      /* Hide the nav language switcher on mobile (matches the hidden nav links) */
+      nav .lang-switcher { display: none; }
+      /* Footer: links on the left, language buttons on the right */
+      footer .footer-right { width: 100%; justify-content: space-between; }
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
@@ -684,10 +696,17 @@
   <footer>
     <a href="#" class="nav-logo">Studio <span>[Name]</span></a>
     <p data-i18n="footer.copy">© 2026 Studio [Name]. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="#services" data-i18n="nav.services">Services</a>
-      <a href="#work" data-i18n="nav.work">Work</a>
-      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    <div class="footer-right">
+      <div class="footer-links">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+      <!-- Second language switcher (dark variant for the dark footer) -->
+      <div class="lang-switcher lang-switcher--dark">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="pt">PT</button>
+      </div>
     </div>
   </footer>
 
@@ -864,8 +883,8 @@
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
 
-      // Persist choice
-      localStorage.setItem('lang', lang);
+      // Persist choice (guarded — some browsers/contexts block storage)
+      try { localStorage.setItem('lang', lang); } catch (e) {}
     }
 
     // ── LANG BUTTON CLICKS ────────────────────────────────────
@@ -892,7 +911,8 @@
     revealEls.forEach(el => observer.observe(el));
 
     // ── INIT: load saved language or default to EN ────────────
-    const savedLang = localStorage.getItem('lang') || 'en';
+    let savedLang = 'en';
+    try { savedLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
     applyLang(savedLang);
   </script>
 </body>
