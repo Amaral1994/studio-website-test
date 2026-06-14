@@ -413,6 +413,19 @@
       align-self: flex-start;
     }
     .btn-submit:hover { background: #b8948a; transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.55; cursor: default; transform: none; }
+    /* Inline confirmation / error message shown after submitting */
+    .form-status {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    .form-status.show { display: block; }
+    .form-status.success { color: var(--rose); }
+    .form-status.error { color: #e3a7a0; }
+    /* Honeypot field — hidden from real users, catches bots */
+    .hp-field { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
 
     /* ── FOOTER ── */
     footer {
@@ -673,12 +686,22 @@
           <span data-i18n="contact.accepting.value">New projects from Q3 2026</span>
         </div>
       </div>
-      <div class="contact-form reveal">
+      <form class="contact-form reveal"
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field">
+        <!-- Tells Netlify which form this submission belongs to -->
+        <input type="hidden" name="form-name" value="contact" />
+        <!-- Honeypot: bots fill this, humans never see it -->
+        <p class="hp-field">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
         <div class="form-row">
-          <input type="text" data-i18n-placeholder="contact.form.name" placeholder="Your name" />
-          <input type="email" data-i18n-placeholder="contact.form.email" placeholder="Your email" />
+          <input type="text" name="name" required aria-label="Your name" data-i18n-placeholder="contact.form.name" placeholder="Your name" />
+          <input type="email" name="email" required aria-label="Your email" data-i18n-placeholder="contact.form.email" placeholder="Your email" />
         </div>
-        <select>
+        <select name="project-type" required aria-label="Type of project">
           <option value="" disabled selected data-i18n="contact.form.type">Type of project</option>
           <option data-i18n="contact.form.opt1">Wedding Website</option>
           <option data-i18n="contact.form.opt2">Business Landing Page</option>
@@ -686,9 +709,10 @@
           <option data-i18n="contact.form.opt4">Brand &amp; Identity</option>
           <option data-i18n="contact.form.opt5">Something else</option>
         </select>
-        <textarea data-i18n-placeholder="contact.form.message" placeholder="Tell us about your project — the more detail, the better."></textarea>
-        <button class="btn-submit" data-i18n="contact.form.submit">Send Enquiry</button>
-      </div>
+        <textarea name="message" required aria-label="Your message" data-i18n-placeholder="contact.form.message" placeholder="Tell us about your project — the more detail, the better."></textarea>
+        <button type="submit" class="btn-submit" data-i18n="contact.form.submit">Send Enquiry</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
@@ -780,6 +804,9 @@
         "contact.form.opt5": "Something else",
         "contact.form.message": "Tell us about your project — the more detail, the better.",
         "contact.form.submit": "Send Enquiry",
+        "contact.form.sending": "Sending…",
+        "contact.form.success": "Thank you — your enquiry is on its way. We'll get back to you within one business day.",
+        "contact.form.error": "Something went wrong. Please email us directly at hello@studioyourname.com.",
         "footer.copy": "© 2026 Studio [Name]. All rights reserved."
       },
       pt: {
@@ -849,12 +876,17 @@
         "contact.form.opt5": "Outro",
         "contact.form.message": "Fale-nos do seu projecto — quanto mais detalhe, melhor.",
         "contact.form.submit": "Enviar Mensagem",
+        "contact.form.sending": "A enviar…",
+        "contact.form.success": "Obrigado — a sua mensagem está a caminho. Respondemos dentro de um dia útil.",
+        "contact.form.error": "Algo correu mal. Por favor, contacte-nos directamente através de hello@studioyourname.com.",
         "footer.copy": "© 2026 Studio [Name]. Todos os direitos reservados."
       }
     };
 
     // ── APPLY LANGUAGE ────────────────────────────────────────
+    let currentLang = 'en';
     function applyLang(lang) {
+      currentLang = lang;
       const t = translations[lang];
       document.documentElement.lang = lang;
 
@@ -891,6 +923,54 @@
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
     });
+
+    // ── CONTACT FORM (Netlify Forms + inline status) ──────────
+    const contactForm = document.querySelector('form[name="contact"]');
+    const formStatus = document.getElementById('form-status');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Basic validation — uses the browser's native checks (required, email)
+        if (!contactForm.checkValidity()) {
+          contactForm.reportValidity();
+          return;
+        }
+
+        const t = translations[currentLang];
+        const submitBtn = contactForm.querySelector('.btn-submit');
+
+        // Show a "sending…" state and lock the button to prevent double-sends
+        submitBtn.disabled = true;
+        submitBtn.textContent = t['contact.form.sending'];
+        formStatus.className = 'form-status';
+
+        // Netlify expects the data url-encoded, posted to the page itself
+        const data = new URLSearchParams(new FormData(contactForm)).toString();
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: data
+        })
+        .then((response) => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          // Success — confirm, clear the fields, reset the button
+          formStatus.textContent = t['contact.form.success'];
+          formStatus.className = 'form-status success show';
+          contactForm.reset();
+        })
+        .catch(() => {
+          formStatus.textContent = t['contact.form.error'];
+          formStatus.className = 'form-status error show';
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = t['contact.form.submit'];
+        });
+      });
+    }
 
     // ── NAV SCROLL STATE ──────────────────────────────────────
     const nav = document.getElementById('nav');
